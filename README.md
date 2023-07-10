@@ -1,6 +1,14 @@
 # **Dorker**
 
-*Dorker* is a simple tool to help you run commands inside a dockerized linux environment
+*Dorker* is a simple tool to help you run commands inside a dockerized linux environment.
+
+## Why *Dorker*?
+
+1. No matter if you want to use valgrind, or strace to check system calls, or any linux package, *Dorker* enables you to run and test your C/C++ programs inside a linux environment with ease. Everything is done through one single bash command 'dorker'.
+
+2. Build once and then never. *Dorker* will ever only be using one single docker image and container. So running the 'dorker <command>' is simply running the command inside that docker container, no unnecessary building time.
+
+3. Usable also in personal computer, not only 42 computers. When *Dorker* build the conatiner for the first time, it will asks you if you want to setup docker inside goinfre, simply type 'n' to skip setting up docker inside goinfre.
 
 ## Installation
 

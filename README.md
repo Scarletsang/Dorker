@@ -53,3 +53,5 @@ After making changes to the Dockerfile, or changed the DORKER_WORKSPACE variable
 ```bash
 dorker-reload
 ```
+
+By default, "Dorker commands successfully loaded" will be printed whenever you start a new terminal session. If you want to turn it off, simply set DORKER_ECHO_ON_STARTUP equals to 0 inside src/settings.sh.

@@ -47,3 +47,9 @@ These 3 commands are called internally of the 'dorker' command when it sees nece
 ## Customization
 
 If you wants to add or delete anything from the *Dorker* container, simply make changes to the Dockerfile inside src.
+
+After making changes to the Dockerfile, or changed the DORKER_WORKSPACE variable, you must rebuilt the image and the container. (if *Dorker* have been run or is already running) The following command rebuild the docker image (if necessary) and the docker container automatically:
+
+```bash
+dorker-reload
+```

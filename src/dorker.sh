@@ -26,6 +26,7 @@ dorker() {
 Avaliable commands:
 
 dorker <commands>        Execute any command inside the \"dorker\" container.
+dorker-reload            Rebuild the dorker container.
 dorker-init              Built and start the docker container called \"dorker\".
 dorker-open-docker       Open docker from the command line.
 dorker-goinfre-docker    Setup docker inside the goinfre directory.
@@ -66,4 +67,13 @@ dorker-init() {
     echo $DORKER_GREEN"Dorker is starting up..."$DORKER_WHITE
   fi
   echo $DORKER_GREEN"Dorker is running in $DORKER_WORKSPACE"$DORKER_WHITE
+}
+
+dorker-reload() {
+  dorker-open-docker
+  docker build . -t dorker -f $(dirname "$(type $0 | awk '{ print $7 }')")/Dockerfile
+  docker stop dorker > /dev/null
+  docker rm dorker > /dev/null
+  docker run -itd -v $DORKER_WORKSPACE:/dorker_workspace --name=dorker dorker > /dev/null &&
+  echo $DORKER_GREEN"Dorker is reloaded and restarted"$DORKER_WHITE
 }

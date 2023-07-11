@@ -6,12 +6,12 @@ dorker-open-docker() {
     open -g -a Docker
     # The animation to open docker inside the terminal
     while [[ -z "$(! docker stats --no-stream 2> /dev/null)" ]];
-      do printf "."
+      do printf $DORKER_GREEN"."$DORKER_WHITE
       sleep 1
     done
-    echo ""$DORKER_WHITE
+    echo ""
   else
-    echo $DORKER_BLUE"Docker is already running"$DORKER_WHITE
+    echo -e $DORKER_BLUE"Docker is already running"$DORKER_WHITE
   fi
 }
 
@@ -42,5 +42,5 @@ dorker-goinfre-docker() {
   ln -sf "$docker_dest"/com.docker.docker ~/Library/Containers/com.docker.docker
   ln -sf "$docker_dest"/com.docker.helper ~/Library/Containers/com.docker.helper
   ln -sf "$docker_dest"/.docker ~/.docker
-  echo $DORKER_BLUE"docker is now set up in goinfre"$DORKER_WHITE
+  echo -e $DORKER_GREEN"docker is now set up in goinfre"$DORKER_WHITE
 }

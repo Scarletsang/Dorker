@@ -8,10 +8,10 @@ __dorker-check()
     return 1
   fi
   # Checks if the dorker container is running
-  if [ $( docker ps -a | grep dorker | wc -l ) -eq 0 ]; then
+  if [ $( docker ps -a 2> /dev/null | grep dorker | wc -l ) -eq 0 ]; then
     # If the dorker image does not exist, then build it,
     # otherwise just run docker-init to build the image and the container
-    if [ $( docker images -q dorker | wc -l ) -eq 0 ]; then
+    if [ $( docker images -q dorker 2> /dev/null | wc -l ) -eq 0 ]; then
       dorker-init
     else
       docker run -itd -v $DORKER_WORKSPACE:/dorker_workspace --name=dorker dorker
@@ -50,7 +50,9 @@ dorker-init() {
   echo -e $DORKER_RED"Dorker wants to know if you want to setup Docker inside goinfre. Do you want to setup Docker within goinfre? [y/N]"$DORKER_WHITE
   read -n 1 DORKER_USER_ANSWER
   if [ -n "$DORKER_USER_ANSWER" ] && [ "$DORKER_USER_ANSWER" = "y" ]; then
-     dorker-goinfre-docker
+    if [[ dorker-goinfre-docker -eq 1 ]]; then
+      return
+    fi
   fi
   dorker-open-docker
   # Checks if the dorker image exists. If not, then build it
@@ -62,11 +64,11 @@ dorker-init() {
       local dockerfile=$(dirname "$(type $0 | awk '{ print $7 }')")/Dockerfile
       chmod 755 $dockerfile
       docker build . -t dorker -f $dockerfile &&
-      docker run -itd -v $DORKER_WORKSPACE:/dorker_workspace --name=dorker dorker
+      docker run -itd -v $DORKER_WORKSPACE:/dorker_workspace --name=dorker dorker > /dev/null ||
+        echo -e $DORKER_RED"Failed to build the dorker image"$DORKER_WHITE
     fi
-    echo $DORKER_GREEN"Dorker is starting up..."$DORKER_WHITE
   fi
-  echo $DORKER_GREEN"Dorker is running in $DORKER_WORKSPACE"$DORKER_WHITE
+  echo -e $DORKER_GREEN"Dorker is running in $DORKER_WORKSPACE"$DORKER_WHITE
 }
 
 dorker-reload() {
@@ -75,5 +77,5 @@ dorker-reload() {
   docker stop dorker > /dev/null
   docker rm dorker > /dev/null
   docker run -itd -v $DORKER_WORKSPACE:/dorker_workspace --name=dorker dorker > /dev/null &&
-  echo $DORKER_GREEN"Dorker is reloaded and restarted"$DORKER_WHITE
+  echo -e $DORKER_GREEN"Dorker is reloaded and restarted"$DORKER_WHITE
 }

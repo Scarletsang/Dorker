@@ -25,11 +25,11 @@ The default is set to $HOME/Documents. If you want to change it, change the "DOR
 
 ## Usage
 
-By just add dorker in front of any command, you can run the command within the docker container
+By just add dorker in front of any command, you can run the command within the docker container. For example running minishell inside the Docker container for testing:
 
 ```bash
 # Make sure you are within the DORKER_WORKSPACE
-cd $HOME/Documents/minishell
+pwd
 # The command "apt-get install libreadline-dev" is getting run inside the docker container
 dorker apt-get install libreadline-dev
 # The command "make re" is getting run inside the docker container
@@ -37,6 +37,41 @@ dorker make re
 # The command "valgrind ./minishell" is getting run inside the docker container
 dorker valgrind --leak-check=full ./minishell
 ```
+
+## Popular usage
+
+If you actually wants to run a shell inside the docker container:
+
+```bash
+dorker bash
+```
+
+Valgrind is avaliable automatically within the container:
+
+```bash
+dorker valgrind --leak-check=full ./minishell
+```
+
+strace can be used to check if you have closed the file descriptors
+
+```bash
+dorker apt-get install strace
+dorker strace ./minishell
+```
+
+It is also possible to use pipes:
+
+```bash
+dorker echo 'echo hi' \| strace ./minishell
+```
+
+is the same as running the following inside the docker container
+
+```bash
+echo 'echo hi' | strace ./minishell
+```
+
+## Other commands that comes with dorker
 
 If you have want to see what commands dorker offers, just type
 
@@ -63,3 +98,12 @@ dorker-reload
 ```
 
 By default, "Dorker commands successfully loaded" will be printed whenever you start a new terminal session. If you want to turn it off, simply set DORKER_ECHO_ON_STARTUP equals to 0 inside src/settings.sh.
+
+## Uninstallation
+
+Inside your ~/.zshrc, simply delete these two lines:
+
+```bash
+# Dorker commands
+source /path_where_dorker_is_installed/Dorker/init.sh
+```

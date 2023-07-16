@@ -8,7 +8,7 @@ __dorker-check()
     return 1
   fi
   # Checks if the dorker container is running
-  if [ $( docker ps -a 2> /dev/null | grep dorker | wc -l ) -eq 0 ]; then
+  if [ $( docker ps 2> /dev/null | grep dorker | wc -l ) -eq 0 ]; then
     # If the dorker image does not exist, then build it,
     # otherwise just run docker-init to build the image and the container
     if [ $( docker images -q dorker 2> /dev/null | wc -l ) -eq 0 ]; then

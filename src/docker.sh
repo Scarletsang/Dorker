@@ -20,8 +20,7 @@ dorker-goinfre-docker() {
   # Ask for docker reset if docker is found in goinfre
   if [ -d "$docker_dest" ]; then
     echo -e ${DORKER_RED}"Docker is already setup in $docker_dest, do you want to reset it? [y/N]"${DORKER_WHITE}
-    read -n 1 input
-    echo ""
+    read input
     if [ -n "$input" ] && [ "$input" = "y" ]; then
       rm -rf $docker_dest/{com.docker.{docker,helper},.docker} &>/dev/null ;:
     fi

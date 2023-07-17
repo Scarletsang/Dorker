@@ -48,9 +48,10 @@ dorker-init() {
   # Asks if you want to use initialize docker inside goinfre.
   # This option is needed because one might want to use it in their personal PC  
   echo -e $DORKER_RED"Dorker wants to know if you want to setup Docker inside goinfre. Do you want to setup Docker within goinfre? [y/N]"$DORKER_WHITE
-  read -n 1 DORKER_USER_ANSWER
+  read DORKER_USER_ANSWER
   if [ -n "$DORKER_USER_ANSWER" ] && [ "$DORKER_USER_ANSWER" = "y" ]; then
-    if [[ dorker-goinfre-docker -eq 1 ]]; then
+    dorker-goinfre-docker
+    if [[ $? -eq 1 ]]; then
       return
     fi
   fi

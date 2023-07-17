@@ -12,7 +12,11 @@
 
 ## Installation
 
+Clone this repository to anywhere in your computer. Preferrably a location that you won't delete in anytime soon.
+
 ```bash
+git clone https://github.com/Scarletsang/Dorker.git
+cd Dorker
 bash install.sh
 source ~/.zshrc
 ```

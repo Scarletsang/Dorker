@@ -25,7 +25,7 @@ source ~/.zshrc
 
 When *Dorker* builds a docker container from a docker image, it will mount a directory of the local computer to the container. The *Dorker* commands can only be used within this directory.
 
-It is recommended to configure it as the parent directory that stores all of your project.
+It is recommended to configure it as the directory where you can find all your projects within.
 
 The default is set to $HOME/Documents. If you want to change it, change the "DORKER_WORKSPACE" variable defined inside src/settings.sh.
 

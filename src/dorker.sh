@@ -2,7 +2,7 @@
 
 __dorker-check()
 {
-  if [ "$1" = $(pwd) ]; then
+  if [ "$1" = "$(pwd)" ]; then
     echo -e $DORKER_RED"You are not inside the workspace specified."$DORKER_WHITE
     echo -e $DORKER_BLUE"Dorker can only be ran inside the specified workspace, currently it is set to \"$DORKER_WORKSPACE\". To change it, please change it inside \"$(dirname "$(type dorker | awk '{ print $7 }')")/settings.sh\"."$DORKER_WHITE
     return 1
@@ -37,11 +37,11 @@ dorker-goinfre-docker    Setup docker inside the goinfre directory.
   local DORKER_CURRENT_PATH=$(pwd | sed "s,^$DORKER_WORKSPACE,,g")
   # Checks if the user is inside the workspace. If not, then return
   # If dorker has not been built yet, the check will run dorker-init (aka the build command)
-  __dorker-check $DORKER_CURRENT_PATH
+  __dorker-check "$DORKER_CURRENT_PATH"
   if [ $? -eq 1 ]; then
     return
   fi
-  docker exec -it dorker bash -c "cd /dorker_workspace$DORKER_CURRENT_PATH && $*"
+  docker exec -it dorker bash -c "cd '/dorker_workspace$DORKER_CURRENT_PATH' && $*"
 }
 
 dorker-init() {

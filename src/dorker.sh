@@ -23,6 +23,10 @@ __dorker-check()
 dorker() {
   if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ $# -eq 0 ]; then
     echo -e $DORKER_BLUE"
+Dorker is configured to run only inside $DORKER_WORKSPACE
+Change settings in $DORKER_INSTALL_DIR/src/settings.sh
+Change Dockerfile in $DORKER_INSTALL_DIR/src/Dockerfile
+
 Avaliable commands:
 
 dorker <commands>        Execute any command inside the \"dorker\" container.

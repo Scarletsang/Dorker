@@ -1,6 +1,6 @@
 # **Dorker**
 
-*Dorker* is a simple tool to help you run commands inside a dockerized linux environment.
+*Dorker* enables you to run commands inside a dockerized linux environment for C/C++ development and testing.
 
 ## Why *Dorker*?
 
@@ -12,7 +12,7 @@
 
 ## Installation
 
-Clone this repository to anywhere in your computer. Preferrably a location that you won't delete in anytime soon.
+Clone this repository to anywhere in your computer. Once you install Dorker, you should not move the Dorker directory somewhere else.
 
 ```bash
 git clone https://github.com/Scarletsang/Dorker.git
@@ -36,12 +36,13 @@ By just add dorker in front of any command, you can run the command within the d
 ```bash
 # Make sure you are within the DORKER_WORKSPACE
 pwd
-# The command "apt-get install libreadline-dev" is getting run inside the docker container
+# The command "apt-get install libreadline-dev" is getting run inside the docker container. You don't need to run this command after Dorker v2.0.0
 dorker apt-get install libreadline-dev
 # The command "make re" is getting run inside the docker container
 dorker make re
 # The command "valgrind ./minishell" is getting run inside the docker container
 dorker valgrind --leak-check=full ./minishell
+dorker strace ./minishell
 ```
 
 ## Popular usage
@@ -61,20 +62,14 @@ dorker valgrind --leak-check=full ./minishell
 `strace` can be used to check if you have closed the file descriptors.
 
 ```bash
-dorker apt-get install strace
 dorker strace ./minishell
 ```
 
-It is also possible to use pipes:
+For more complicated commands, it is recommanded to write the whole commands in quotes:
 
 ```bash
-dorker echo 'echo hi' \| strace ./minishell
-```
-
-is the same as running the following inside the docker container
-
-```bash
-echo 'echo hi' | strace ./minishell
+dorker "echo 'echo hi' | strace ./minishell"
+dorker "./my_program && echo 'program run successfully'"
 ```
 
 ## Customization
@@ -98,6 +93,8 @@ By default, "Dorker commands successfully loaded" will be printed whenever you s
 3. `dorker-init` Built and start the docker container called "dorker".
 
 These commands works standalone, so feel free to use them independently.
+
+For 42 Heilbronn students, as of 2023 December, the school computer still has two Docker installed. *Dorker* might get stucked in opening Docker if a different Docker is still running. So if something went wrong, please quite the Docker Desktop program entirely and then run *Dorker*.
 
 ## Uninstallation
 

@@ -4,7 +4,7 @@
 
 ## Why *Dorker*?
 
-1. No matter if you want to use valgrind, or strace to check system calls, or any linux package, *Dorker* enables you to run and test your C/C++ programs inside a linux environment with ease. Everything is done through one single bash command 'dorker'.
+1. You need to test your programs with valgrind, or debug with strace, but you are developing software on MacOS. With one single command 'dorker', you can test your C/C++ programs in Docker with zero set up.
 
 2. Build once and then never. *Dorker* will ever only be using one single docker image and container. So running the `dorker <command>` is simply running the command inside that docker container, no unnecessary building time.
 

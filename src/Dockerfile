@@ -4,9 +4,9 @@ FROM debian:latest
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
     build-essential \
-    valgrind \
+    libreadline-dev \
     g++ \
     git \
-    make
-# Uncomment the following line if you want to use readline
-# RUN apt-get install libreadline-dev strace -y
+    make \
+    valgrind \
+    strace
